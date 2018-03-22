@@ -3,7 +3,6 @@
 //
 
 #include "util.h"
-
 int get_proc_status(int pid, const char *mark) {
     FILE *pf;
     char fn[BUFFER_SIZE], buf[BUFFER_SIZE];
@@ -28,3 +27,11 @@ int get_page_fault_mem(struct rusage ruse, pid_t pidApp) {
     m_minflt = ruse.ru_minflt * getpagesize();
     return (m_minflt >> 10);
 }
+
+int get_next_non_space(FILE *fp) {
+    int c;
+    while ((c = fgetc(fp)) != EOF && isspace(c)) {
+    }
+    return c;
+}
+

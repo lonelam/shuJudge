@@ -16,6 +16,7 @@ private:
     int problem_id_;
     int submission_id_;
     Language language_;
+
 public:
     int compile();
 

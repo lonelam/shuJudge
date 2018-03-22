@@ -3,7 +3,8 @@
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
-    Test t("1.in", "1.out");
+    Test t("a.in", "a.out");
+    system("g++ -std=c++11 -o Main a.cpp");
     t.debug();
     return 0;
 }
