@@ -106,11 +106,11 @@ int Test::watch() {
 
             if (sig == SIGSEGV) {
                 cout << "** Memory Error" << endl;
-                result = RE;
+                result_ = RE;
                 ptrace(PTRACE_KILL, pid_, NULL, NULL);
             } else if (sig == SIGXCPU) {
                 cout << "** Time Limit Exceeded" << endl;
-                result = TLE;
+                result_ = TLE;
                 ptrace(PTRACE_KILL, pid_, NULL, NULL);
             } else if (sig == SIGKILL) {
                 cout << "killed" << endl;
@@ -124,7 +124,7 @@ int Test::watch() {
             cout << "Stop signal number: " << sig << endl;
             if (sig == SIGSEGV) {
                 cout << "segment fault" << endl;
-                result = RE;
+                result_ = RE;
                 ptrace(PTRACE_KILL, pid_, NULL, NULL);
 
             }
@@ -134,7 +134,7 @@ int Test::watch() {
             }
             if (sig == SIGXFSZ) {
                 cout << "File Size Exceed" << endl;
-                result = OLE;
+                result_ = OLE;
                 ptrace(PTRACE_KILL, pid_, NULL, NULL);
             }
             ptrace(PTRACE_CONT, pid_, NULL, NULL);
@@ -157,13 +157,13 @@ int Test::watch() {
     cout << time_usage_ << endl;
 
     if (time_usage_ > time_limit_) {
-        result = TLE;
+        result_ = TLE;
     }
     memory_usage_ = max(memory_usage_, ruse.ru_maxrss);
     cout << "Memory Usage in maxrss" << endl;
     cout << ruse.ru_maxrss << endl;
-    if (result == AC && memory_usage_ > memory_limit_) {
-        result = MLE;
+    if (result_ == AC && memory_usage_ > memory_limit_) {
+        result_ = MLE;
     }
 }
 
@@ -174,16 +174,16 @@ int Test::judge() {
     user_out = fopen(output_position_.c_str(), "re");
     std_out = fopen(stdout_position_.c_str(), "re");
     if (!user_out) {
-        result = RE;
+        result_ = RE;
     } else if (!std_out) {
-        result = SE;
+        result_ = SE;
     } else {
         int c1, c2, line_cnt = 0;
         string line_user, line_std;
-        while (result == AC && (c2 = get_next_non_space(std_out)) != EOF) {
+        while (result_ == AC && (c2 = get_next_non_space(std_out)) != EOF) {
             c1 = get_next_non_space(user_out);
             if (c1 != c2) {
-                result = WA;
+                result_ = WA;
                 while (c1 != EOF && c1 != '\n') {
                     line_user.push_back(c1);
                     c1 = get_next_non_space(user_out);
@@ -211,8 +211,8 @@ int Test::judge() {
             line_user.push_back(c1);
             line_std.push_back(c2);
         }
-        if (result == AC && (c1 = get_next_non_space(user_out)) != EOF) {
-            result = WA;
+        if (result_ == AC && (c1 = get_next_non_space(user_out)) != EOF) {
+            result_ = WA;
             return 0;
         }
     }
@@ -231,8 +231,8 @@ int Test::debug() {
     watch();
     judge();
     cout << "Result: " << endl;
-    cout << STATE[result] << endl;
-    if (result == WA) {
+    cout << STATE[result_] << endl;
+    if (result_ == WA) {
         cout << extra_info_[0] << endl;
     }
 }

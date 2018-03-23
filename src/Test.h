@@ -12,9 +12,17 @@
 using std::string;
 using std::vector;
 class Test {
+
+public:
+    State result_ = AC;
+
+    Test(string stdin_position, string stdout_position, Language language = cpp);
+
+    Test(string &stdin_position, string &stdout_position, Language language);
+
+    int debug();
+
 private:
-
-
     const string bin_position_;
     string output_position_ = "user.out";
     string stdin_position_;
@@ -24,13 +32,12 @@ private:
     unsigned int time_limit_ = 1000;
     //in KB
     unsigned int memory_limit_ = 256 * 1024;
+    //only valid in run and watch
     pid_t pid_;
     //in milliseconds
     time_t time_usage_ = 0;
     //in KB
     long int memory_usage_ = 0;
-
-    State result = AC;
 
     vector<string> extra_info_;
 
@@ -42,13 +49,6 @@ private:
 
     //对输出结果进行评判，进入这里应当是能够正常输出的程序
     int judge();
-
-public:
-    Test(string stdin_position, string stdout_position, Language language = cpp);
-
-    Test(string &stdin_position, string &stdout_position, Language language);
-
-    int debug();
 
 };
 
