@@ -41,5 +41,4 @@ void Handler::handle_post(http_request msg) {
     catch (exception &e) {
         cout << e.what() << endl;
     }
-
 }
