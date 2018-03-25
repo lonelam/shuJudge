@@ -1,7 +1,7 @@
 //
 // Created by acm on 3/22/18.
 //
-
+#pragma once
 #ifndef SHUJUDGE_UTIL_H
 #define SHUJUDGE_UTIL_H
 
@@ -29,10 +29,18 @@ enum State {
 using std::string;
 using std::vector;
 using std::map;
-
+extern map<string, State> STATE_STR;
 const string STATE[] = {
         "AC", "PE", "WA", "RE", "TLE", "MLE", "OLE", "CE", "SE"
 };
+extern map<string, Language> LANG_STR;
+const string LANG[] = {
+        "c", "cpp", "java"
+};
+
+State to_state(const string &st);
+
+Language to_language(const string &lang);
 
 int get_proc_status(int pid, const char *mark);
 
