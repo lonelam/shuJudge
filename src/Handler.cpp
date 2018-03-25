@@ -3,10 +3,10 @@
 //
 
 #include "Handler.h"
-
+#include "Submission.h"
 using web::http::status_codes;
 using namespace std;
-
+using namespace web;
 
 Handler::Handler(utility::string_t uri) : listener_(uri) {
     using web::http::methods;
@@ -28,4 +28,18 @@ void Handler::handle_get(http_request msg) {
                 }
             });
     return;
+}
+
+void Handler::handle_post(http_request msg) {
+    ucout << msg.to_string() << endl;
+    json::value submission_json = msg.extract_json().get();
+    try {
+
+        Submission submission();
+        submission_json[U("submission_id")].as_integer();
+    }
+    catch (exception &e) {
+        cout << e.what() << endl;
+    }
+
 }

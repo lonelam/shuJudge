@@ -6,7 +6,8 @@
 #define SHUJUDGE_HANDLER_H
 
 #include <cpprest/http_listener.h>
-
+#include <cpprest/filestream.h>
+#include <cpprest/json.h>
 using web::http::experimental::listener::http_listener;
 using web::http::http_request;
 
