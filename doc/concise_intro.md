@@ -1,23 +1,23 @@
-# data
+# Data
 data should be stored at both web server and judger when tests are running.
 initially, a judger should get an empty data folder,
-after calculating checksum or detect that there's just no such a folder,
+after detecting that there's just no such a folder,
 the judger server should retrieve data files from web server.
-if checksum of datafiles didn't change then just run it.
+if version numbers of datafiles didn't change then just run it.
 
 
 the data files should be named `[name].in` and `[name].out`
-(optional if spj) in pair.
+(optional if SPJ) in pair.
 
-# checksum
-2 methods are being considered.
-1. concatenate the bytes one by one and regard all files as one file.
-2. calculate the checksum of all files first and concatenate results.
-then calculate checksum again.
-# task
+<!-- # checksum -->
+<!-- Two methods are being considered. -->
+<!-- 1. concatenate the bytes one by one and regard all files as one file. -->
+<!-- 2. calculate the checksum of all files first and concatenate results. -->
+<!-- then calculate checksum again. -->
 
 
-# api in JSON
+
+# API in JSON
 example:
 ```json
 {
@@ -29,5 +29,25 @@ example:
   "memory_limit": 262144,
   "is_spj": false,
   "checksum": "32tqwet",
+}
+```
+
+after the results emerged, the following infomation should be returned to the web server.
+```json
+{
+  "submission_id": 9527,
+  "final_result": "WA",
+  "data_runs": {
+     "first_data": {
+     "result": "AC",
+     "info": ""},
+     "second_data": {
+     "result": "AC",
+      "info": ""},
+     "third_data": {
+     "result": "WA",
+     "info": "you have different output on line 123,\n >>>> your output: \n 1 \n<<<< std output: 5\n" },
+  }
+  "judge_key": "shucam",
 }
 ```
